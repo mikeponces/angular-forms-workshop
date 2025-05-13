@@ -1,0 +1,45 @@
+<div class="personal-info-container">
+    <h3>Personal Information</h3>
+    <form #personalForm="ngForm" (ngModelChange)="onValueChanged()">
+        <div class="form-group">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" name="firstName" class="form-control" [(ngModel)]="personalInfo.firstName"
+                required minlength="2" #firstName="ngModel">
+            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="error-message">
+                <div *ngIf="firstName.errors?.['required']">First name is required.</div>
+                <div *ngIf="firstName.errors?.['minlength']">First name must be at least 2
+                    characters long.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" name="lastName" class="form-control" [(ngModel)]="personalInfo.lastName"
+                required minlength="2" #lastName="ngModel">
+            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="error-message">
+                <div *ngIf="lastName.errors?.['required']">Last name is required.</div>
+                <div *ngIf="lastName.errors?.['minlength']">Last name must be at least 2
+                    characters long.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Corporate Email *</label>
+            <input type="email" id="email" name="email" class="form-control" [(ngModel)]="personalInfo.email" required
+                email #email="ngModel" appCorporateEmail>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="errormessage">
+                <div *ngIf="email.errors?.['required']">Email is required.</div>
+                <div *ngIf="email.errors?.['email']">Please enter a valid email address.</div>
+                <div *ngIf="email.errors?.['corporateEmail']">Please use a corporate email
+                    address (not gmail, yahoo, etc.).</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" class="form-control" [(ngModel)]="personalInfo.phone"
+                #phone="ngModel" appPhoneFormat>
+            <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="errormessage">
+                <div *ngIf="phone.errors?.['phoneFormat']">Please enter a valid phone number.
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,27 @@
+<div class="registration-container">
+    <h2>Conference Registration Form</h2>
+    <p class="form-description">
+        Please fill out all required fields (marked with *) to complete your registration.
+    </p>
+    <div class="form-sections">
+        <app-personal-info (formValidity)="updatePersonalValidity($event)" (formData)="updatePersonalInfo($event)">
+        </app-personal-info>
+        <app-professional-info (formValidity)="updateProfessionalValidity($event)"
+            (formData)="updateProfessionalInfo($event)">
+        </app-professional-info>
+        <div class="form-actions">
+            <button type="button" class="btn btn-primary submit-btn" [disabled]="!canSubmit() || isSubmitting"
+                (click)="onSubmit()">
+                {{ isSubmitting ? 'Submitting...' : 'Submit Registration' }}
+            </button>
+        </div>
+        {{personalInfoValid}}
+        {{professionalInfoValid}}
+        <div *ngIf="submitSuccess" class="success-message">
+            Registration submitted successfully! We'll be in touch shortly.
+        </div>
+        <div *ngIf="submitError" class="error-message">
+            {{ submitError }}
+        </div>
+    </div>
+</div>

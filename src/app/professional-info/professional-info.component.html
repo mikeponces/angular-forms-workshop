@@ -1,0 +1,77 @@
+<div class="professional-info-container">
+    <h3>Professional Information</h3>
+    <form [formGroup]="professionalForm">
+        <div class="form-group">
+            <label for="company">Company *</label>
+            <input type="text" id="company" formControlName="company" class="form-control">
+            <div *ngIf="professionalForm.get('company')?.invalid &&
+    (professionalForm.get('company')?.dirty ||
+    professionalForm.get('company')?.touched)" class="error-message">
+                <div *ngIf="professionalForm.get('company')?.errors?.['required']">
+                    Company name is required.
+                </div>
+                <div *ngIf="professionalForm.get('company')?.errors?.['minlength']">
+                    Company name must be at least 2 characters long.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="jobTitle">Job Title *</label>
+            <input type="text" id="jobTitle" formControlName="jobTitle" class="form-control">
+            <div *ngIf="professionalForm.get('jobTitle')?.invalid &&
+    (professionalForm.get('jobTitle')?.dirty ||
+    professionalForm.get('jobTitle')?.touched)" class="error-message">
+                <div *ngIf="professionalForm.get('jobTitle')?.errors?.['required']">
+                    Job title is required.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="yearsExperience">Years of Experience *</label>
+            <input type="number" id="yearsExperience" formControlName="yearsExperience" class="form-control">
+            <div *ngIf="professionalForm.get('yearsExperience')?.invalid &&
+    (professionalForm.get('yearsExperience')?.dirty ||
+    professionalForm.get('yearsExperience')?.touched)" class="error-message">
+                <div *ngIf="professionalForm.get('yearsExperience')?.errors?.['required']">
+                    Years of experience is required.
+                </div>
+                <div *ngIf="professionalForm.get('yearsExperience')?.errors?.['min']">
+                    Years of experience cannot be negative.
+                </div>
+                <div *ngIf="professionalForm.get('yearsExperience')?.errors?.
+    ['minExperience']">
+                    Must have at least 1 year of experience.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Skills *</label>
+            <div formArrayName="skills">
+                <div *ngFor="let skill of skills.controls; let i = index" class="skill-row">
+                    <input type="text" [formControlName]="i" class="form-control skill-input">
+                    <button type="button" class="btn btn-danger btn-sm" (click)="removeSkill(i)"
+                        [disabled]="skills.length === 1">
+                        Remove
+                    </button>
+                    <div *ngIf="skills.at(i).invalid &&
+    (skills.at(i).dirty || skills.at(i).touched)" class="error-message">
+                        <div *ngIf="skills.at(i).errors?.['required']">
+                            Skill is required.
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary" (click)="addSkill()">
+                    Add Skill
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="dietaryRequirements">Dietary Requirements</label>
+            <select id="dietaryRequirements" formControlName="dietaryRequirements" class="form-control">
+                <option *ngFor="let option of dietaryOptions" [value]="option">
+                    {{ option }}
+                </option>
+            </select>
+        </div>
+    </form>
+</div>
