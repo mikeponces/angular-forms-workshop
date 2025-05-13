@@ -15,8 +15,6 @@
                 {{ isSubmitting ? 'Submitting...' : 'Submit Registration' }}
             </button>
         </div>
-        {{personalInfoValid}}
-        {{professionalInfoValid}}
         <div *ngIf="submitSuccess" class="success-message">
             Registration submitted successfully! We'll be in touch shortly.
         </div>
