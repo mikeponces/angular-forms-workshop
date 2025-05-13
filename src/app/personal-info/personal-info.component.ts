@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CustomValidatorsService } from '../validators/custom-validators.service';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,7 @@ import { PhoneFormatDirective } from '../directives/phone-format.directive';
   templateUrl: './personal-info.component.html',
   styleUrl: './personal-info.component.css'
 })
-export class PersonalInfoComponent implements OnInit {
+export class PersonalInfoComponent implements OnInit, AfterViewInit {
   @ViewChild('personalForm') personalForm!: NgForm;
   @Output() formValidity = new EventEmitter<boolean>();
   @Output() formData = new EventEmitter<any>();
@@ -24,6 +24,13 @@ export class PersonalInfoComponent implements OnInit {
   };
 
   constructor(public customValidators: CustomValidatorsService) { }
+
+  ngAfterViewInit(): void {
+    // Subscribe to form status changes
+    this.personalForm.statusChanges?.subscribe(() => {
+      this.onValueChanged();
+    });
+  }
 
   ngOnInit(): void {
   }
